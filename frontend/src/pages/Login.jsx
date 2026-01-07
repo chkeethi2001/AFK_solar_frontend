@@ -11,7 +11,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/login", data);
+      const res = await axios.post("https://afk-solar-backend-5.onrender.com/api/login", data);
 
       // Store user data, role, and token in localStorage
       localStorage.setItem("user", JSON.stringify(res.data.user));
