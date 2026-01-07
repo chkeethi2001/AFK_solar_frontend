@@ -16,7 +16,7 @@ const Profile = () => {
 
       setPreview(
         storedUser.avatar
-          ? `http://localhost:5000/uploads/${storedUser.avatar}`
+          ? `https://afk-solar-backend-5.onrender.com/uploads/${storedUser.avatar}`
           : null
       );
     }
@@ -46,7 +46,7 @@ const Profile = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/update/${storedUser.id}`,
+        `https://afk-solar-backend-5.onrender.com/api/update/${storedUser.id}`,
         formData,
         {
           headers: {
