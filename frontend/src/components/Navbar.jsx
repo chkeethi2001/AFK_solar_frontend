@@ -23,7 +23,7 @@ const Navbar = () => {
 
       // Build avatar URL if available
       if (parsed.avatar) {
-        setAvatarUrl(`http://localhost:5000/uploads/${parsed.avatar}`);
+        setAvatarUrl(`https://afk-solar-backend-5.onrender.com/uploads/${parsed.avatar}`);
       } else {
         setAvatarUrl(null);
       }
