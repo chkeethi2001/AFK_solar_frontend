@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000"; // change if different
+const API_URL = "https://afk-solar-backend-5.onrender.com"; 
 
 export default function Blog() {
   const storedRole = localStorage.getItem("role");
