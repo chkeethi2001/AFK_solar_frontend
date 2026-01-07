@@ -32,7 +32,7 @@ const Contact = () => {
     setStatus("Sending...");
 
     try {
-      await axios.post("http://localhost:5000/api/contact", formData);
+      await axios.post("https://afk-solar-backend-5.onrender.com/api/contact", formData);
 
       setStatus("Message sent successfully!");
       setFormData({
