@@ -28,7 +28,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/register", form);
+      const res = await axios.post("https://afk-solar-backend-5.onrender.com/api/register", form);
 
       toast.success(res.data.message || "Registration Successful!");
 
