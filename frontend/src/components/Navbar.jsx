@@ -23,7 +23,7 @@ const Navbar = () => {
 
       // Build avatar URL if available
       if (parsed.avatar) {
-        setAvatarUrl(`https://afk-solar-backend-5.onrender.com/uploads/${parsed.avatar}`);
+        setAvatarUrl(`http://localhost:5000/uploads/${parsed.avatar}`);
       } else {
         setAvatarUrl(null);
       }
@@ -66,94 +66,129 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
-      className="w-full text-white shadow-md fixed top-0 left-0 z-50"
-      style={{ backgroundColor: "#004225" }}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-6">
-        {/* Logo */}
-        <img
-          src={AFKlogo}
-          alt="AFK EcoGrid"
-          className="h-12 w-auto mr-3 rounded"
-        />
+    <nav className="w-full text-white shadow-lg fixed top-0 left-0 z-50">
+      {/* White background section with logo and slanted design */}
+      <div className="relative bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo Section - White Background */}
+          <div className="flex items-center py-3 px-6 bg-white relative z-10">
+            <img
+              src={AFKlogo}
+              alt="AFK EcoGrid"
+              className="h-14 w-auto rounded"
+            />
+          </div>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex space-x-6 text-lg font-medium">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className="hover:text-gray-300 transition"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+          {/* Slanted Green Sections */}
+          <div className="absolute top-0 right-0 h-full w-full flex pointer-events-none">
+            {/* First slanted stripe */}
+            <div 
+              className="absolute h-full w-24 transform skew-x-[-20deg] origin-top-left"
+              style={{ 
+                backgroundColor: "#004225",
+                left: "180px",
+                top: 0
+              }}
+            />
+            
+            {/* Second slanted stripe */}
+            <div 
+              className="absolute h-full w-24 transform skew-x-[-20deg] origin-top-left"
+              style={{ 
+                backgroundColor: "#004225",
+                left: "240px",
+                top: 0
+              }}
+            />
 
-        {/* Desktop Auth / User */}
-        <div className="hidden md:flex items-center space-x-4">
-          {!role && (
-            <>
+            {/* Main green background */}
+            <div 
+              className="absolute h-full w-full"
+              style={{ 
+                backgroundColor: "#004225",
+                left: "300px",
+                top: 0
+              }}
+            />
+          </div>
+
+          {/* Desktop Links - On green background */}
+          <div className="hidden md:flex space-x-6 text-base font-medium pr-6 relative z-10">
+            {navLinks.map((link) => (
               <Link
-                to="/register"
-                className="bg-white text-[#138808] font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
+                key={link.name}
+                to={link.path}
+                className="hover:text-gray-200 transition whitespace-nowrap"
               >
-                Register
+                {link.name}
               </Link>
+            ))}
+          </div>
 
-              <Link
-                to="/login"
-                className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#138808] transition"
-              >
-                Login
-              </Link>
-            </>
-          )}
+          {/* Desktop Auth / User */}
+          <div className="hidden md:flex items-center space-x-4 pr-6 relative z-10">
+            {!role && (
+              <>
+                <Link
+                  to="/register"
+                  className="bg-white text-[#138808] font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
+                >
+                  Register
+                </Link>
 
-          {role && (
-            <div className="flex items-center gap-4">
-              {/* Avatar */}
-              <div
-                onClick={() => navigate("/profile")}
-                className="cursor-pointer flex items-center"
-              >
-                {avatarUrl ? (
-                  <img
-                    src={avatarUrl}
-                    alt="Avatar"
-                    className="w-10 h-10 rounded-full object-cover border-2 border-white hover:scale-110 transition"
-                  />
-                ) : (
-                  <div className="w-10 h-10 bg-white text-black font-bold flex items-center justify-center rounded-full text-xl hover:scale-110 transition">
-                    {userName ? userName.charAt(0).toUpperCase() : "U"}
+                <Link
+                  to="/login"
+                  className="border-2 border-white px-4 py-2 rounded hover:bg-white hover:text-[#138808] transition font-semibold"
+                >
+                  Login
+                </Link>
+              </>
+            )}
+
+            {role && (
+              <div className="flex items-center gap-4">
+                {/* Avatar */}
+                <div
+                  onClick={() => navigate("/profile")}
+                  className="cursor-pointer flex items-center"
+                >
+                  {avatarUrl ? (
+                    <img
+                      src={avatarUrl}
+                      alt="Avatar"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white hover:scale-110 transition"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 bg-white text-[#138808] font-bold flex items-center justify-center rounded-full text-xl hover:scale-110 transition border-2 border-white">
+                      {userName ? userName.charAt(0).toUpperCase() : "U"}
+                    </div>
+                  )}
+                </div>
+
+                {role === "admin" && (
+                  <div className="bg-yellow-400 text-black px-4 py-2 rounded opacity-70 cursor-not-allowed">
+                    Admin Panel
                   </div>
                 )}
+
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition font-semibold"
+                >
+                  Logout
+                </button>
               </div>
+            )}
+          </div>
 
-              {role === "admin" && (
-                <div className="bg-yellow-400 text-black px-4 py-2 rounded opacity-70 cursor-not-allowed">
-                  Admin Panel
-                </div>
-              )}
-
-              <button
-                onClick={handleLogout}
-                className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+          {/* Mobile Menu Btn */}
+          <button
+            className="md:hidden text-3xl relative z-10 pr-6 text-white"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            ☰
+          </button>
         </div>
-
-        {/* Mobile Menu Btn */}
-        <button
-          className="md:hidden text-3xl"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -177,14 +212,14 @@ const Navbar = () => {
             <>
               <Link
                 to="/register"
-                className="bg-white text-[#138808] px-4 py-2 rounded font-semibold"
+                className="bg-white text-[#138808] px-4 py-2 rounded font-semibold text-center"
               >
                 Register
               </Link>
 
               <Link
                 to="/login"
-                className="border border-white px-4 py-2 rounded"
+                className="border-2 border-white px-4 py-2 rounded text-center font-semibold"
               >
                 Login
               </Link>
@@ -201,7 +236,7 @@ const Navbar = () => {
                     className="w-10 h-10 rounded-full object-cover border-2 border-white"
                   />
                 ) : (
-                  <div className="w-10 h-10 bg-yellow-400 text-black font-bold flex items-center justify-center rounded-full text-xl">
+                  <div className="w-10 h-10 bg-white text-[#138808] font-bold flex items-center justify-center rounded-full text-xl border-2 border-white">
                     {userName ? userName.charAt(0).toUpperCase() : "U"}
                   </div>
                 )}
